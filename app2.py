@@ -6,6 +6,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input,Output
 import plotly.express as px
+import dash_table
 
 # external CSS stylesheets
 external_stylesheets = [
@@ -105,6 +106,13 @@ total_recovered=np.sum(total_r)
 total_death=np.sum(total_d)
 active_cases=total_confirmed-(total_recovered+total_death)
 closed_cases=(total_recovered+total_death)
+
+data11={'Countries': countries, 'Total cases' : total_c}
+df11=pd.DataFrame(data11)
+data22={'Countries': countries, 'Total cases' : total_r}
+df22=pd.DataFrame(data22)
+data33={'Countries': countries, 'Total cases' : total_d}
+df33=pd.DataFrame(data33)
 
 option=[
     {'label':'Infected', 'value':'Infected'},
@@ -261,6 +269,55 @@ app2.layout=html.Div([
             ],className='card')
         ],className='col-lg-12')
     ],className='row forth-graph'),
+    html.Div([
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.H2('Total Confirmed Cases :-'),
+                    dash_table.DataTable(id='table1',columns=[{"name": i, "id": i} for i in df11.columns],
+                    data=df11.to_dict('records'),
+                    style_table={"overflowY":"scroll",'height': 500},style_cell={'textAlign': 'center'},
+                                         style_cell_conditional=[
+                                             {
+                                                 'if': {'column_id': 'Countries'},
+                                                 'textAlign': 'right'
+                                             }
+                                         ]
+                                         )
+                ],className='card-body table-format')
+            ],className='card')
+        ],className='col-lg-4'),
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.H2('Total Recoved Cases :-'),
+                    dash_table.DataTable(id='table2',columns=[{"name": j, "id": j} for j in df22.columns],
+                    data=df22.to_dict('records'),style_table={"overflowY": "scroll",'height': 500},style_cell={'textAlign': 'center'},
+                                         style_cell_conditional=[
+                                             {
+                                                 'if': {'column_id': 'Countries'},
+                                                 'textAlign': 'right'
+                                             }
+                                         ])
+                ],className='card-body table-format')
+            ],className='card')
+        ],className='col-lg-4'),
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.H2('Total Death cases :-'),
+                    dash_table.DataTable(id='table3',columns=[{"name": k, "id": k} for k in df33.columns],
+                    data=df33.to_dict('records'),style_table={"overflowY": "scroll",'height': 500},style_cell={'textAlign': 'center'},
+                                         style_cell_conditional=[
+                                             {
+                                                 'if': {'column_id': 'Countries'},
+                                                 'textAlign': 'right'
+                                             }
+                                         ])
+                ],className='card-body table-format')
+            ],className='card')
+        ],className='col-lg-4')
+    ],className='row'),
     html.Footer([
         html.Div(['© Copyright 2020 : ',
             html.A('Tuhin Mukherjee',href="https://whitexgod.github.io/cv/")
