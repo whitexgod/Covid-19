@@ -130,6 +130,8 @@ options=[
 app2 = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server=app2.server
 
+app2.title='Corona Pandemic'
+
 app2.layout=html.Div([
     html.H5("updated on : 06/04/2020, Time : 11:00 ", style={ 'text-align':'right', 'padding':'1%', 'color':'#FFFFFF'}),
     html.H1("Corona Virus Pandemic Analysis", style={'text-align': 'center'}, className='title'),
@@ -282,7 +284,13 @@ app2.layout=html.Div([
                                                  'if': {'column_id': 'Countries'},
                                                  'textAlign': 'right'
                                              }
-                                         ]
+                                         ],style_header={
+                                                     'fontWeight': 'bold',
+                                             'backgroundColor': 'rgb(230, 230, 230)',
+                                         },style_data_conditional=[ {
+                                                     'if': {'row_index': 'odd'},
+                                                     'backgroundColor': 'rgb(248, 248, 248)'
+                                                                        }]
                                          )
                 ],className='card-body table-format')
             ],className='card')
@@ -298,7 +306,14 @@ app2.layout=html.Div([
                                                  'if': {'column_id': 'Countries'},
                                                  'textAlign': 'right'
                                              }
-                                         ])
+                                         ],style_header={
+                                                     'fontWeight': 'bold',
+                                             'backgroundColor': 'rgb(230, 230, 230)',
+                                         },style_data_conditional=[ {
+                                                     'if': {'row_index': 'odd'},
+                                                     'backgroundColor': 'rgb(248, 248, 248)'
+                                                                        }]
+                                         )
                 ],className='card-body table-format')
             ],className='card')
         ],className='col-lg-4'),
@@ -312,7 +327,13 @@ app2.layout=html.Div([
                                              {
                                                  'if': {'column_id': 'Countries'},
                                                  'textAlign': 'right'
-                                             }
+                                             }],style_header={
+                                                     'fontWeight': 'bold',
+                                             'backgroundColor': 'rgb(230, 230, 230)',
+                                         },style_data_conditional=[ {
+                                                     'if': {'row_index': 'odd'},
+                                                     'backgroundColor': 'rgb(248, 248, 248)'
+                                                                        }
                                          ])
                 ],className='card-body table-format')
             ],className='card')
